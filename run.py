@@ -6,12 +6,10 @@ from vnpy.app.cta_strategy import CtaStrategyApp
 from vnpy.app.cta_backtester import CtaBacktesterApp
 
 def main():
-     """Start VN Trader"""
+    """Start VN Trader"""
     qapp = create_qapp()
-
     event_engine = EventEngine()
     main_engine = MainEngine(event_engine)
-
     main_engine.add_gateway(CtpGateway)
     main_engine.add_app(CtaStrategyApp)
     main_engine.add_app(CtaBacktesterApp)
