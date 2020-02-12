@@ -16,7 +16,7 @@ class DemoStrategy(CtaTemplate):
     fast_ma0=0.0
     fast_ma1=0.0
     slow_ma0=0.0
-    slow_ma1-0.0
+    slow_ma1=0.0
 
     parameters = [
         "fast_window",
@@ -79,10 +79,11 @@ class DemoStrategy(CtaTemplate):
         self.slow_ma1 = slow_ma[-2]
 
         # 判断均线交叉
-        cross_over = (self.fast_ma0 >= self.slow_ma0 and    self.fast_ma1 < self.slow_ma1)
+        cross_over = (self.fast_ma0 >= self.slow_ma0 and
+                      self.fast_ma1 < self.slow_ma1)
 
         cross_blow = (self.fast_ma0 <= self.slow_ma0 and
-        self.fast_ma1 > self.slow_ma1)
+                      self.fast_ma1 > self.slow_ma1)
 
         if cross_over:
             price = bar.close_price + 5
