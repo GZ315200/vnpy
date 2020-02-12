@@ -116,6 +116,7 @@ class CtaTemplate(ABC):
     @virtual
     def on_tick(self, tick: TickData):
         """
+        行情推送
         Callback of new tick data update.
         """
         pass
@@ -123,6 +124,7 @@ class CtaTemplate(ABC):
     @virtual
     def on_bar(self, bar: BarData):
         """
+        K线推送
         Callback of new bar data update.
         """
         pass
@@ -130,6 +132,7 @@ class CtaTemplate(ABC):
     @virtual
     def on_trade(self, trade: TradeData):
         """
+
         Callback of new trade data update.
         """
         pass
@@ -137,6 +140,7 @@ class CtaTemplate(ABC):
     @virtual
     def on_order(self, order: OrderData):
         """
+        委托推送
         Callback of new order data update.
         """
         pass
@@ -144,6 +148,7 @@ class CtaTemplate(ABC):
     @virtual
     def on_stop_order(self, stop_order: StopOrder):
         """
+        通知订单推送
         Callback of stop order update.
         """
         pass
