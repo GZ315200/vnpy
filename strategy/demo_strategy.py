@@ -41,9 +41,7 @@ class DemoStrategy(CtaTemplate):
         self.am = ArrayManager()
 
     def on_init(self):
-        """
-            策略初始化
-        """
+        """策略初始化"""
         self.write_log("策略初始化")
         self.load_bar(10)
 
@@ -97,7 +95,7 @@ class DemoStrategy(CtaTemplate):
             price = bar.close_price - 5
 
             if not self.pos:
-                self.sell(price, 1)
+                self.short(price, 1)
             elif self.pos > 0:
                 self.short(price, 1)
                 self.sell(price, 1)
