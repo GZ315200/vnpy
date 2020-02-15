@@ -113,7 +113,8 @@ class RecorderManager(QtWidgets.QWidget):
             EVENT_RECORDER_LOG, self.signal_log.emit)
         self.event_engine.register(
             EVENT_RECORDER_UPDATE, self.signal_update.emit)
-        self.event_engine.register(EVENT_RECORDER_EXCEPTION, self.signal_exception.emit)
+        self.event_engine.register(
+            EVENT_RECORDER_EXCEPTION, self.signal_exception.emit)
 
     def process_log_event(self, event: Event):
         """"""

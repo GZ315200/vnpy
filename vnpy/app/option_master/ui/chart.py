@@ -149,7 +149,8 @@ class OptionVolatilityChart(QtWidgets.QWidget):
 
     def update_curve_data(self) -> None:
         """"""
-        portfolio: PortfolioData = self.option_engine.get_portfolio(self.portfolio_name)
+        portfolio: PortfolioData = self.option_engine.get_portfolio(
+            self.portfolio_name)
 
         for chain in portfolio.chains.values():
             call_impv = []
@@ -283,10 +284,12 @@ class ScenarioAnalysisChart(QtWidgets.QWidget):
         portfolio = self.option_engine.get_portfolio(self.portfolio_name)
 
         price_change_range = self.price_change_spin.value()
-        price_changes = np.arange(-price_change_range, price_change_range + 1) / 100
+        price_changes = np.arange(-price_change_range,
+                                  price_change_range + 1) / 100
 
         impv_change_range = self.impv_change_spin.value()
-        impv_changes = np.arange(-impv_change_range, impv_change_range + 1) / 100
+        impv_changes = np.arange(-impv_change_range,
+                                 impv_change_range + 1) / 100
 
         time_change = self.time_change_spin.value() / ANNUAL_DAYS
         target_name = self.target_combo.currentText()
@@ -337,8 +340,10 @@ class ScenarioAnalysisChart(QtWidgets.QWidget):
                     if not option.net_pos:
                         continue
 
-                    new_underlying_price = option.underlying.mid_price * (1 + price_change)
-                    new_time_to_expiry = max(option.time_to_expiry - time_change, 0)
+                    new_underlying_price = option.underlying.mid_price * \
+                        (1 + price_change)
+                    new_time_to_expiry = max(
+                        option.time_to_expiry - time_change, 0)
                     new_mid_impv = option.mid_impv * (1 + impv_change)
 
                     new_price, delta, gamma, theta, vega = option.calculate_greeks(
@@ -383,7 +388,8 @@ class ScenarioAnalysisChart(QtWidgets.QWidget):
         else:
             target_data = vegas
 
-        self.update_chart(price_changes * 100, impv_changes * 100, target_data, target_name)
+        self.update_chart(price_changes * 100, impv_changes *
+                          100, target_data, target_name)
 
     def update_chart(
         self,

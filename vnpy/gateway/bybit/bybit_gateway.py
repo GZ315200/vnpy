@@ -573,7 +573,8 @@ class BybitRestApi(RestClient):
                     break
 
                 # Update start time
-                start_time = int((bar.datetime + TIMEDELTA_MAP[req.interval]).timestamp())
+                start_time = int(
+                    (bar.datetime + TIMEDELTA_MAP[req.interval]).timestamp())
 
         return history
 
@@ -645,7 +646,8 @@ class BybitWebsocketApi(WebsocketClient):
         )
         self.ticks[req.symbol] = tick
 
-        self.subscribe_topic(f"instrument_info.100ms.{req.symbol}", self.on_tick)
+        self.subscribe_topic(
+            f"instrument_info.100ms.{req.symbol}", self.on_tick)
         self.subscribe_topic(f"orderBookL2_25.{req.symbol}", self.on_depth)
 
     def subscribe_topic(self, topic: str, callback: Callable[[str, dict], Any]):

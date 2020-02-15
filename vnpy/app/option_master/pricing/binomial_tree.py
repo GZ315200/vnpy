@@ -166,7 +166,8 @@ def calculate_greeks(
     """Calculate option price and greeks"""
     dt = t / n
     option_tree, underlying_tree = generate_tree(f, k, r, t, v, cp, n)
-    option_tree_vega, underlying_tree_vega = generate_tree(f, k, r, t, v * 1.001, cp, n)
+    option_tree_vega, underlying_tree_vega = generate_tree(
+        f, k, r, t, v * 1.001, cp, n)
 
     # Price
     price = option_tree[0, 0]

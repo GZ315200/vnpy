@@ -167,7 +167,8 @@ class CtptestGateway(BaseGateway):
         ):
             md_address = "tcp://" + md_address
 
-        self.td_api.connect(td_address, userid, password, brokerid, auth_code, appid, product_info)
+        self.td_api.connect(td_address, userid, password,
+                            brokerid, auth_code, appid, product_info)
         self.md_api.connect(md_address, userid, password, brokerid)
 
         self.init_query()
@@ -542,7 +543,8 @@ class CtpTdApi(TdApi):
         account = AccountData(
             accountid=data["AccountID"],
             balance=data["Balance"],
-            frozen=data["FrozenMargin"] + data["FrozenCash"] + data["FrozenCommission"],
+            frozen=data["FrozenMargin"] +
+            data["FrozenCash"] + data["FrozenCommission"],
             gateway_name=self.gateway_name
         )
         account.available = data["Available"]
@@ -568,9 +570,11 @@ class CtpTdApi(TdApi):
             # For option only
             if contract.product == Product.OPTION:
                 contract.option_underlying = data["UnderlyingInstrID"],
-                contract.option_type = OPTIONTYPE_CTP2VT.get(data["OptionsType"], None),
+                contract.option_type = OPTIONTYPE_CTP2VT.get(
+                    data["OptionsType"], None),
                 contract.option_strike = data["StrikePrice"],
-                contract.option_expiry = datetime.strptime(data["ExpireDate"], "%Y%m%d"),
+                contract.option_expiry = datetime.strptime(
+                    data["ExpireDate"], "%Y%m%d"),
 
             self.gateway.on_contract(contract)
 

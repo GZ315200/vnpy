@@ -103,7 +103,8 @@ class ChartWizardWidget(QtWidgets.QWidget):
         self.signal_tick.connect(self.process_tick_event)
         self.signal_history.connect(self.process_history_event)
 
-        self.event_engine.register(EVENT_CHART_HISTORY, self.signal_history.emit)
+        self.event_engine.register(
+            EVENT_CHART_HISTORY, self.signal_history.emit)
         self.event_engine.register(EVENT_TICK, self.signal_tick.emit)
 
     def process_tick_event(self, event: Event) -> None:

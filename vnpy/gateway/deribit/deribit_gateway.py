@@ -480,7 +480,8 @@ class DeribitWebsocketApi(WebsocketClient):
             price=float(data["price"]),
             volume=float(data["amount"]),
             traded=float(data["filled_amount"]),
-            time=str(datetime.fromtimestamp(data["last_update_timestamp"] / 1000)),
+            time=str(datetime.fromtimestamp(
+                data["last_update_timestamp"] / 1000)),
             status=STATUS_DERIBIT2VT[data["order_state"]],
             gateway_name=self.gateway_name,
         )
@@ -531,7 +532,8 @@ class DeribitWebsocketApi(WebsocketClient):
             price=float(data["price"]),
             volume=float(data["amount"]),
             traded=float(data["filled_amount"]),
-            time=str(datetime.fromtimestamp(data["last_update_timestamp"] / 1000)),
+            time=str(datetime.fromtimestamp(
+                data["last_update_timestamp"] / 1000)),
             status=STATUS_DERIBIT2VT[data["order_state"]],
             gateway_name=self.gateway_name,
         )

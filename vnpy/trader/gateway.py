@@ -287,7 +287,8 @@ class LocalOrderManager:
         self.push_data_callback: Callable = None
 
         # Cancel request buf
-        self.cancel_request_buf: Dict[str, CancelRequest] = {}    # local_orderid: req
+        # local_orderid: req
+        self.cancel_request_buf: Dict[str, CancelRequest] = {}
 
         # Hook cancel order function
         self._cancel_order: Callable[CancelRequest] = gateway.cancel_order

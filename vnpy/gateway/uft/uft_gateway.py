@@ -76,7 +76,8 @@ DIRECTION_VT2UFT: Dict[Direction, str] = {
     Direction.LONG: HS_D_Buy,
     Direction.SHORT: HS_D_Sell
 }
-DIRECTION_UFT2VT: Dict[str, Direction] = {v: k for k, v in DIRECTION_VT2UFT.items()}
+DIRECTION_UFT2VT: Dict[str, Direction] = {
+    v: k for k, v in DIRECTION_VT2UFT.items()}
 # DIRECTION_UFT2VT[HS_PT_Right] = Direction.LONG
 # DIRECTION_UFT2VT[HS_PT_Voluntary] = Direction.SHORT
 
@@ -84,7 +85,8 @@ ORDERTYPE_VT2UFT: Dict[OrderType, str] = {
     OrderType.LIMIT: HS_CT_Limit,
     OrderType.MARKET: HS_CT_Market
 }
-ORDERTYPE_UFT2VT: Dict[str, OrderType] = {v: k for k, v in ORDERTYPE_VT2UFT.items()}
+ORDERTYPE_UFT2VT: Dict[str, OrderType] = {
+    v: k for k, v in ORDERTYPE_VT2UFT.items()}
 
 OFFSET_VT2UFT: Dict[Offset, str] = {
     Offset.OPEN: HS_OF_Open,
@@ -102,7 +104,8 @@ EXCHANGE_UFT2VT: Dict[str, Exchange] = {
     HS_EI_SSE: Exchange.SSE,
     HS_EI_SZSE: Exchange.SZSE,
 }
-EXCHANGE_VT2UFT: Dict[Exchange, str] = {v: k for k, v in EXCHANGE_UFT2VT.items()}
+EXCHANGE_VT2UFT: Dict[Exchange, str] = {
+    v: k for k, v in EXCHANGE_UFT2VT.items()}
 
 PRODUCT_UFT2VT: Dict[str, Product] = {
     HS_PTYPE_Futures: Product.FUTURES,
@@ -557,7 +560,8 @@ class UftTdApi(TdApi):
                     position.yd_volume = data["PositionVolume"]
             # For other exchange position data update
             else:
-                position.yd_volume = data["PositionVolume"] - data["TodayPositionVolume"]
+                position.yd_volume = data["PositionVolume"] - \
+                    data["TodayPositionVolume"]
 
             # Get contract size (spread contract has no size value)
             size = symbol_size_map.get(position.symbol, 0)
@@ -631,10 +635,12 @@ class UftTdApi(TdApi):
                     contract.option_portfolio = data["ProductID"]
 
                 contract.option_underlying = data["UnderlyingInstrID"]
-                contract.option_type = OPTIONTYPE_UFT2VT.get(data["OptionsType"], None)
+                contract.option_type = OPTIONTYPE_UFT2VT.get(
+                    data["OptionsType"], None)
                 contract.option_strike = data["ExercisePrice"]
                 contract.option_index = str(data["ExercisePrice"])
-                contract.option_expiry = datetime.strptime(str(data["ExpireDate"]), "%Y%m%d")
+                contract.option_expiry = datetime.strptime(
+                    str(data["ExpireDate"]), "%Y%m%d")
 
             self.gateway.on_contract(contract)
 

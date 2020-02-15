@@ -152,7 +152,8 @@ class ElectronicEyeAlgo:
 
     def on_trade(self, trade: TradeData) -> None:
         """"""
-        self.write_log(f"委托成交，{trade.direction} {trade.offset} {trade.volume}@{trade.price}")
+        self.write_log(
+            f"委托成交，{trade.direction} {trade.offset} {trade.volume}@{trade.price}")
 
     def on_timer(self) -> None:
         """"""
@@ -185,7 +186,8 @@ class ElectronicEyeAlgo:
 
     def buy(self, price: float, volume: int) -> None:
         """"""
-        vt_orderid = self.send_order(Direction.LONG, Offset.OPEN, price, volume)
+        vt_orderid = self.send_order(
+            Direction.LONG, Offset.OPEN, price, volume)
         self.long_active_orderids.add(vt_orderid)
 
     def sell(self, price: float, volume: int) -> None:
@@ -194,7 +196,8 @@ class ElectronicEyeAlgo:
 
     def short(self, price: float, volume: int) -> None:
         """"""
-        vt_orderid = self.send_order(Direction.SHORT, Offset.OPEN, price, volume)
+        vt_orderid = self.send_order(
+            Direction.SHORT, Offset.OPEN, price, volume)
         self.short_active_orderids.add(vt_orderid)
 
     def cover(self, price: float, volume: int) -> None:

@@ -18,13 +18,17 @@ from requests import ConnectionError
 
 from vnpy.api.rest import Request, RestClient
 from vnpy.api.websocket import WebsocketClient
-from vnpy.trader.constant import (Direction, Exchange, Interval, Offset, OrderType, Product, Status)
+from vnpy.trader.constant import (
+    Direction, Exchange, Interval, Offset, OrderType, Product, Status)
 from vnpy.trader.gateway import BaseGateway
 from vnpy.trader.object import (AccountData, BarData, CancelRequest, ContractData, HistoryRequest,
                                 OrderData, OrderRequest, PositionData, SubscribeRequest, TickData,
                                 TradeData)
 
-_ = lambda x: x  # noqa
+
+def _(x): return x  # noqa
+
+
 REST_HOST = "https://www.okex.com"
 WEBSOCKET_HOST = "wss://real.okex.com:8443/ws/v3"
 
@@ -372,7 +376,8 @@ class OkexsRestApi(RestClient):
     def on_query_order(self, data, request):
         """"""
         for order_info in data["order_info"]:
-            order = _parse_order_info(order_info, gateway_name=self.gateway_name)
+            order = _parse_order_info(
+                order_info, gateway_name=self.gateway_name)
             self.gateway.on_order(order)
 
     def on_query_time(self, data, request):
@@ -634,7 +639,8 @@ class OkexsWebsocketApi(WebsocketClient):
         msg = f"触发异常，状态码：{exception_type}，信息：{exception_value}"
         self.gateway.write_log(msg)
 
-        sys.stderr.write(self.exception_detail(exception_type, exception_value, tb))
+        sys.stderr.write(self.exception_detail(
+            exception_type, exception_value, tb))
 
     def login(self):
         """

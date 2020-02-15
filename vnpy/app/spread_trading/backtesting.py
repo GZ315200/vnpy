@@ -263,7 +263,8 @@ class BacktestingEngine:
         else:
             # Calculate balance related time series data
             df["balance"] = df["net_pnl"].cumsum() + self.capital
-            df["return"] = np.log(df["balance"] / df["balance"].shift(1)).fillna(0)
+            df["return"] = np.log(
+                df["balance"] / df["balance"].shift(1)).fillna(0)
             df["highlevel"] = (
                 df["balance"].rolling(
                     min_periods=1, window=len(df), center=False).max()
@@ -284,7 +285,8 @@ class BacktestingEngine:
             max_ddpercent = df["ddpercent"].min()
             max_drawdown_end = df["drawdown"].idxmin()
             max_drawdown_start = df["balance"][:max_drawdown_end].argmax()
-            max_drawdown_duration = (max_drawdown_end - max_drawdown_start).days
+            max_drawdown_duration = (
+                max_drawdown_end - max_drawdown_start).days
 
             total_net_pnl = df["net_pnl"].sum()
             daily_net_pnl = total_net_pnl / total_days
@@ -664,7 +666,8 @@ class DailyResult:
         self.start_pos = start_pos
         self.end_pos = start_pos
 
-        self.holding_pnl = self.start_pos * (self.close_price - self.pre_close) * size
+        self.holding_pnl = self.start_pos * \
+            (self.close_price - self.pre_close) * size
 
         # Trading pnl is the pnl from new trade during the day
         self.trade_count = len(self.trades)

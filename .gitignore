@@ -36,4 +36,4 @@ _templates
 # Misc
 .DS_Store
 
-.history
+.history/

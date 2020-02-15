@@ -191,7 +191,8 @@ class BitstampGateway(BaseGateway):
                 self.write_log(msg)
 
                 # Update start time
-                start_time = int(datetime.timestamp(end)) + INTERVAL_VT2BITSTAMP[req.interval]
+                start_time = int(datetime.timestamp(end)) + \
+                    INTERVAL_VT2BITSTAMP[req.interval]
 
         return history
 

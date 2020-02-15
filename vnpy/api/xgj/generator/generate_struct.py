@@ -80,5 +80,6 @@ class StructGenerator:
 
 
 if __name__ == "__main__":
-    generator = StructGenerator("../include/xgj/ThostFtdcUserApiStruct.h", "xgj")
+    generator = StructGenerator(
+        "../include/xgj/ThostFtdcUserApiStruct.h", "xgj")
     generator.run()

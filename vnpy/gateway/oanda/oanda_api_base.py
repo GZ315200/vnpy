@@ -7,7 +7,8 @@ from vnpy.api.rest import Request, RestClient
 if TYPE_CHECKING:
     from vnpy.gateway.oanda import OandaGateway
 
-_ = lambda x: x  # noqa
+
+def _(x): return x  # noqa
 
 
 class OandaApiBase(RestClient):

@@ -398,7 +398,8 @@ class DaFutureApi(FutureApi):
         else:
             order.time = data["OrderTime"]
 
-            self.order_info[order.orderid] = (data["OrderNo"], data["SystemNo"])
+            self.order_info[order.orderid] = (
+                data["OrderNo"], data["SystemNo"])
 
         self.gateway.on_order(copy(order))
 
@@ -440,7 +441,8 @@ class DaFutureApi(FutureApi):
             if product == Product.OPTION:
                 contract.option_type = OPTIONTYPE_DA2VT[data["OptionType"]]
                 contract.option_strike = to_float(data["OptionStrikePrice"])
-                contract.option_expiry = datetime.strptime(data["LastTradeDay"], "%Y%m%d")
+                contract.option_expiry = datetime.strptime(
+                    data["LastTradeDay"], "%Y%m%d")
 
             symbol_name_map[contract.vt_symbol] = contract.name
             symbol_currency_map[contract.symbol] = data["CommodityFCurrencyNo"]
@@ -472,7 +474,8 @@ class DaFutureApi(FutureApi):
 
             self.local_no = max(self.local_no, int(data["LocalNo"]))
             self.orders[order.orderid] = order
-            self.order_info[order.orderid] = (data["OrderNo"], data["SystemNo"])
+            self.order_info[order.orderid] = (
+                data["OrderNo"], data["SystemNo"])
 
             self.gateway.on_order(copy(order))
 

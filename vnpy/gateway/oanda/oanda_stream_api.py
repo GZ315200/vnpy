@@ -14,7 +14,10 @@ from .oanda_common import (parse_datetime, parse_time)
 
 if TYPE_CHECKING:
     from vnpy.gateway.oanda import OandaGateway
-_ = lambda x: x  # noqa
+
+
+def _(x): return x  # noqa
+
 
 HOST = "https://stream-fxtrade.oanda.com"
 TEST_HOST = "https://stream-fxpractice.oanda.com"
@@ -88,7 +91,8 @@ class OandaStreamApi(OandaApiBase):
             "GET",
             f"/v3/accounts/{self.gateway.account_id}/pricing/stream?instruments={req.symbol}",
             callback=self.on_price,
-            on_error=partial(self.on_streaming_error, partial(self.subscribe, copy(req))),
+            on_error=partial(self.on_streaming_error,
+                             partial(self.subscribe, copy(req))),
         )
 
     def on_price(self, data: dict, request: Request):
@@ -149,7 +153,8 @@ class OandaStreamApi(OandaApiBase):
             f"/v3/accounts/{self.gateway.account_id}/transactions/stream",
             callback=self.on_transaction,
             on_connected=self.on_subscribed_transaction,
-            on_error=partial(self.on_streaming_error, partial(self.subscribe_transaction, )),
+            on_error=partial(self.on_streaming_error,
+                             partial(self.subscribe_transaction, )),
         )
 
     def on_subscribed_transaction(self, request: "Request"):

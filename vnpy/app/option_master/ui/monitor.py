@@ -156,7 +156,8 @@ class OptionMarketMonitor(MonitorTable):
 
         for option in portfolio.options.values():
             self.option_symbols.add(option.vt_symbol)
-            self.underlying_option_map[option.underlying.vt_symbol].append(option.vt_symbol)
+            self.underlying_option_map[option.underlying.vt_symbol].append(
+                option.vt_symbol)
 
         # Set table row and column numbers
         row_count = 0
@@ -361,7 +362,8 @@ class OptionGreeksMonitor(MonitorTable):
 
         for option in portfolio.options.values():
             self.option_symbols.add(option.vt_symbol)
-            self.underlying_option_map[option.underlying.vt_symbol].append(option.vt_symbol)
+            self.underlying_option_map[option.underlying.vt_symbol].append(
+                option.vt_symbol)
 
         # Set table row and column numbers
         row_count = 1

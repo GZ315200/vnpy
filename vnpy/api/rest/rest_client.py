@@ -404,7 +404,8 @@ class RestClient(object):
                 request.response = response
                 status_code = response.status_code
 
-                self._log("[%s] received response from %s:%s", uid, method, url)
+                self._log("[%s] received response from %s:%s",
+                          uid, method, url)
 
                 # check result & call corresponding callbacks
                 if not stream:  # normal API:

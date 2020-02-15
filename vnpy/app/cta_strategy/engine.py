@@ -313,7 +313,8 @@ class CtaEngine(BaseEngine):
         )
 
         # Convert with offset converter
-        req_list = self.offset_converter.convert_order_request(original_req, lock)
+        req_list = self.offset_converter.convert_order_request(
+            original_req, lock)
 
         # Send Orders
         vt_orderids = []
@@ -536,11 +537,13 @@ class CtaEngine(BaseEngine):
                     start=start,
                     end=end
                 )
-                bars = self.main_engine.query_history(req, contract.gateway_name)
+                bars = self.main_engine.query_history(
+                    req, contract.gateway_name)
 
             # Try to query bars from RQData, if not found, load from database.
             else:
-                bars = self.query_bar_from_rq(symbol, exchange, interval, start, end)
+                bars = self.query_bar_from_rq(
+                    symbol, exchange, interval, start, end)
 
         if not bars:
             bars = database_manager.load_bar_data(
@@ -796,7 +799,8 @@ class CtaEngine(BaseEngine):
         Sync strategy data into json file.
         """
         data = strategy.get_variables()
-        data.pop("inited")      # Strategy status (inited, trading) should not be synced.
+        # Strategy status (inited, trading) should not be synced.
+        data.pop("inited")
         data.pop("trading")
 
         self.strategy_data[strategy.strategy_name] = data

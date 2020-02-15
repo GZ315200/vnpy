@@ -741,7 +741,8 @@ class HbdmWebsocketApiBase(WebsocketClient):
             "type": "api",
             "cid": str(self.req_id),
         }
-        params.update(create_signature(self.key, "GET", self.sign_host, self.path, self.secret))
+        params.update(create_signature(self.key, "GET",
+                                       self.sign_host, self.path, self.secret))
         return self.send_packet(params)
 
     def on_login(self, packet):
@@ -786,6 +787,7 @@ class HbdmWebsocketApiBase(WebsocketClient):
 
 class HbdmTradeWebsocketApi(HbdmWebsocketApiBase):
     """"""
+
     def __init__(self, gateway):
         """"""
         super().__init__(gateway)

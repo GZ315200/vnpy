@@ -98,7 +98,8 @@ class OptionManager(QtWidgets.QWidget):
         """"""
         self.signal_new_portfolio.connect(self.process_new_portfolio_event)
 
-        self.event_engine.register(EVENT_OPTION_NEW_PORTFOLIO, self.signal_new_portfolio.emit)
+        self.event_engine.register(
+            EVENT_OPTION_NEW_PORTFOLIO, self.signal_new_portfolio.emit)
 
     def process_new_portfolio_event(self, event: Event) -> None:
         """"""
@@ -132,17 +133,27 @@ class OptionManager(QtWidgets.QWidget):
 
     def init_widgets(self) -> None:
         """"""
-        self.market_monitor = OptionMarketMonitor(self.option_engine, self.portfolio_name)
-        self.greeks_monitor = OptionGreeksMonitor(self.option_engine, self.portfolio_name)
-        self.volatility_chart = OptionVolatilityChart(self.option_engine, self.portfolio_name)
-        self.chain_monitor = OptionChainMonitor(self.option_engine, self.portfolio_name)
-        self.manual_trader = OptionManualTrader(self.option_engine, self.portfolio_name)
-        self.hedge_widget = OptionHedgeWidget(self.option_engine, self.portfolio_name)
-        self.scenario_chart = ScenarioAnalysisChart(self.option_engine, self.portfolio_name)
-        self.eye_manager = ElectronicEyeManager(self.option_engine, self.portfolio_name)
-        self.pricing_manager = PricingVolatilityManager(self.option_engine, self.portfolio_name)
+        self.market_monitor = OptionMarketMonitor(
+            self.option_engine, self.portfolio_name)
+        self.greeks_monitor = OptionGreeksMonitor(
+            self.option_engine, self.portfolio_name)
+        self.volatility_chart = OptionVolatilityChart(
+            self.option_engine, self.portfolio_name)
+        self.chain_monitor = OptionChainMonitor(
+            self.option_engine, self.portfolio_name)
+        self.manual_trader = OptionManualTrader(
+            self.option_engine, self.portfolio_name)
+        self.hedge_widget = OptionHedgeWidget(
+            self.option_engine, self.portfolio_name)
+        self.scenario_chart = ScenarioAnalysisChart(
+            self.option_engine, self.portfolio_name)
+        self.eye_manager = ElectronicEyeManager(
+            self.option_engine, self.portfolio_name)
+        self.pricing_manager = PricingVolatilityManager(
+            self.option_engine, self.portfolio_name)
 
-        self.market_monitor.itemDoubleClicked.connect(self.manual_trader.update_symbol)
+        self.market_monitor.itemDoubleClicked.connect(
+            self.manual_trader.update_symbol)
 
         self.market_button.clicked.connect(self.market_monitor.show)
         self.greeks_button.clicked.connect(self.greeks_monitor.show)
@@ -240,7 +251,8 @@ class PortfolioDialog(QtWidgets.QDialog):
         chain_symbols = list(portfolio._chains.keys())
         chain_symbols.sort()
 
-        chain_underlying_map = portfolio_setting.get("chain_underlying_map", {})
+        chain_underlying_map = portfolio_setting.get(
+            "chain_underlying_map", {})
 
         for chain_symbol in chain_symbols:
             combo = QtWidgets.QComboBox()
@@ -480,7 +492,8 @@ class OptionManualTrader(QtWidgets.QWidget):
             return
 
         if self.vt_symbol:
-            self.event_engine.unregister(EVENT_TICK + self.vt_symbol, self.process_tick_event)
+            self.event_engine.unregister(
+                EVENT_TICK + self.vt_symbol, self.process_tick_event)
             self.clear_data()
             self.vt_symbol = ""
 
@@ -494,7 +507,8 @@ class OptionManualTrader(QtWidgets.QWidget):
         if tick:
             self.update_tick(tick)
 
-        self.event_engine.unregister(EVENT_TICK + vt_symbol, self.process_tick_event)
+        self.event_engine.unregister(
+            EVENT_TICK + vt_symbol, self.process_tick_event)
 
     def create_label(
         self,

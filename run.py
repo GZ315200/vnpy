@@ -5,6 +5,7 @@ from vnpy.gateway.ctp import CtpGateway
 from vnpy.app.cta_strategy import CtaStrategyApp
 from vnpy.app.cta_backtester import CtaBacktesterApp
 
+
 def main():
     """Start VN Trader"""
     qapp = create_qapp()
@@ -18,6 +19,7 @@ def main():
     main_window.showMaximized()
 
     qapp.exec()
+
 
 if __name__ == "__main__":
     main()

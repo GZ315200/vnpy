@@ -482,7 +482,8 @@ class TradeApi(ITapTradeAPINotify):
                 commodity_type=info.CommodityType,
                 commodity_no=info.CommodityNo,
             )
-            contract_infos[(contract.symbol, contract.exchange)] = contract_info
+            contract_infos[(contract.symbol, contract.exchange)
+                           ] = contract_info
 
         if isLast == "Y":
             self.gateway.write_log("查询交易合约信息成功")

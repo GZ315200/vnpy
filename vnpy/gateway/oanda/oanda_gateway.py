@@ -8,7 +8,8 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
 from vnpy.event import Event
-from vnpy.trader.constant import (Direction, Exchange, Interval, Offset, OrderType, Status)
+from vnpy.trader.constant import (
+    Direction, Exchange, Interval, Offset, OrderType, Status)
 from vnpy.trader.event import EVENT_TIMER
 from vnpy.trader.gateway import BaseGateway
 from vnpy.trader.object import (BarData, CancelRequest, HistoryRequest, OrderData, OrderRequest,
@@ -17,7 +18,8 @@ from .oanda_common import INTERVAL_VT2OANDA_DELTA, ORDER_TYPE_OANDA2VT, local_tz
 from .oanda_rest_api import HistoryDataNextInfo, OandaRestApi
 from .oanda_stream_api import OandaStreamApi
 
-_ = lambda x: x  # noqa
+
+def _(x): return x  # noqa
 
 
 @dataclass()
@@ -194,7 +196,8 @@ class OandaGateway(BaseGateway):
             type=type_,
             direction=Direction.LONG if vol > 0 else Direction.SHORT,
             offset=Offset.NONE,
-            price=float(data['price']) if type_ is not OrderType.MARKET else 0.0,
+            price=float(
+                data['price']) if type_ is not OrderType.MARKET else 0.0,
             volume=abs(vol),
             # status=STATUS_OANDA2VT[data['state']],
             status=status,

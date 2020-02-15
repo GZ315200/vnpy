@@ -233,7 +233,8 @@ class BacktestingEngine:
         progress = 0
 
         while start < self.end:
-            end = min(end, self.end)  # Make sure end time stays within set range
+            # Make sure end time stays within set range
+            end = min(end, self.end)
 
             if self.mode == BacktestingMode.BAR:
                 data = load_bar_data(
@@ -391,7 +392,8 @@ class BacktestingEngine:
         else:
             # Calculate balance related time series data
             df["balance"] = df["net_pnl"].cumsum() + self.capital
-            df["return"] = np.log(df["balance"] / df["balance"].shift(1)).fillna(0)
+            df["return"] = np.log(
+                df["balance"] / df["balance"].shift(1)).fillna(0)
             df["highlevel"] = (
                 df["balance"].rolling(
                     min_periods=1, window=len(df), center=False).max()
@@ -414,7 +416,8 @@ class BacktestingEngine:
 
             if isinstance(max_drawdown_end, date):
                 max_drawdown_start = df["balance"][:max_drawdown_end].idxmax()
-                max_drawdown_duration = (max_drawdown_end - max_drawdown_start).days
+                max_drawdown_duration = (
+                    max_drawdown_end - max_drawdown_start).days
             else:
                 max_drawdown_duration = 0
 
@@ -663,17 +666,22 @@ class BacktestingEngine:
 
         # Set up genetic algorithem
         toolbox = base.Toolbox()
-        toolbox.register("individual", tools.initIterate, creator.Individual, generate_parameter)
-        toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+        toolbox.register("individual", tools.initIterate,
+                         creator.Individual, generate_parameter)
+        toolbox.register("population", tools.initRepeat,
+                         list, toolbox.individual)
         toolbox.register("mate", tools.cxTwoPoint)
         toolbox.register("mutate", mutate_individual, indpb=1)
         toolbox.register("evaluate", ga_optimize)
         toolbox.register("select", tools.selNSGA2)
 
         total_size = len(settings)
-        pop_size = population_size                      # number of individuals in each generation
-        lambda_ = pop_size                              # number of children to produce at each generation
-        mu = int(pop_size * 0.8)                        # number of individuals to select for the next generation
+        # number of individuals in each generation
+        pop_size = population_size
+        # number of children to produce at each generation
+        lambda_ = pop_size
+        # number of individuals to select for the next generation
+        mu = int(pop_size * 0.8)
 
         cxpb = 0.95         # probability that an offspring is produced by crossover
         mutpb = 1 - cxpb    # probability that an offspring is produced by mutation
@@ -955,7 +963,8 @@ class BacktestingEngine:
         if stop:
             vt_orderid = self.send_stop_order(direction, offset, price, volume)
         else:
-            vt_orderid = self.send_limit_order(direction, offset, price, volume)
+            vt_orderid = self.send_limit_order(
+                direction, offset, price, volume)
         return [vt_orderid]
 
     def send_stop_order(
@@ -1184,7 +1193,8 @@ class DailyResult:
                 turnover = trade.volume * size / trade.price
                 self.trading_pnl += pos_change * \
                     (1 / trade.price - 1 / self.close_price) * size
-                self.slippage += trade.volume * size * slippage / (trade.price ** 2)
+                self.slippage += trade.volume * \
+                    size * slippage / (trade.price ** 2)
 
             self.turnover += turnover
             self.commission += turnover * rate

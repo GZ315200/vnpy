@@ -15,7 +15,10 @@ from .oanda_common import (INTERVAL_VT2OANDA, INTERVAL_VT2OANDA_DELTA, ORDER_TYP
 
 if TYPE_CHECKING:
     from vnpy.gateway.oanda import OandaGateway
-_ = lambda x: x  # noqa
+
+
+def _(x): return x  # noqa
+
 
 HOST = "https://api-fxtrade.oanda.com"
 TEST_HOST = "https://api-fxpractice.oanda.com"
@@ -285,7 +288,7 @@ class OandaRestApi(OandaApiBase):
                          )
 
     def query_account_changes(self):
-        do_nothing = lambda a, b, c, d: None  # noqa
+        def do_nothing(a, b, c, d): return None  # noqa
 
         if self.last_account_transaction_id is not None:
             account_id = self.gateway.account_id
@@ -323,8 +326,10 @@ class OandaRestApi(OandaApiBase):
         # we have to get pnl from 'state' record.
         for pos_state_data in state['positions']:
             symbol = pos_state_data['instrument']
-            unrealized_pnls[(symbol, Direction.LONG)] = float(pos_state_data['longUnrealizedPL'])
-            unrealized_pnls[(symbol, Direction.SHORT)] = float(pos_state_data['shortUnrealizedPL'])
+            unrealized_pnls[(symbol, Direction.LONG)] = float(
+                pos_state_data['longUnrealizedPL'])
+            unrealized_pnls[(symbol, Direction.SHORT)] = float(
+                pos_state_data['shortUnrealizedPL'])
 
         for pos_data in positions:
             pos_long, pos_short = self.parse_position_data(pos_data)

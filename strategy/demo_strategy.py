@@ -1,7 +1,8 @@
-from vnpy.app.cta_strategy import CtaTemplate, BarGenerator,ArrayManager
+from vnpy.app.cta_strategy import CtaTemplate, BarGenerator, ArrayManager
 from vnpy.trader.object import BarData
 from typing import Any
 # 均线策略
+
 
 class DemoStrategy(CtaTemplate):
     """
@@ -13,10 +14,10 @@ class DemoStrategy(CtaTemplate):
     slow_window = 20
 
     # 定义变量
-    fast_ma0=0.0
-    fast_ma1=0.0
-    slow_ma0=0.0
-    slow_ma1=0.0
+    fast_ma0 = 0.0
+    fast_ma1 = 0.0
+    slow_ma0 = 0.0
+    slow_ma1 = 0.0
 
     parameters = [
         "fast_window",
@@ -31,11 +32,11 @@ class DemoStrategy(CtaTemplate):
 
     def __init__(
         self,
-    cta_engine: Any,
-    strategy_name,
-     vt_symbol,
-     setting
-     ):
+        cta_engine: Any,
+        strategy_name,
+        vt_symbol,
+        setting
+    ):
         super().__init__(cta_engine, strategy_name, vt_symbol, setting)
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
@@ -102,6 +103,3 @@ class DemoStrategy(CtaTemplate):
 
         # 更新图形界面
         self.put_event()
-
-
-

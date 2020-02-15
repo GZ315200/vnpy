@@ -164,7 +164,8 @@ class XgjGateway(BaseGateway):
         if not md_address.startswith("tcp://"):
             md_address = "tcp://" + md_address
 
-        self.td_api.connect(td_address, td_userid, td_password, brokerid, auth_code, appid, product_info)
+        self.td_api.connect(td_address, td_userid, td_password,
+                            brokerid, auth_code, appid, product_info)
         self.md_api.connect(md_address, md_userid, md_password, brokerid)
 
         self.init_query()
@@ -538,7 +539,8 @@ class XgjTdApi(TdApi):
         account = AccountData(
             accountid=data["AccountID"],
             balance=data["Balance"],
-            frozen=data["FrozenMargin"] + data["FrozenCash"] + data["FrozenCommission"],
+            frozen=data["FrozenMargin"] +
+            data["FrozenCash"] + data["FrozenCommission"],
             gateway_name=self.gateway_name
         )
         account.available = data["Available"]
@@ -564,9 +566,11 @@ class XgjTdApi(TdApi):
             # For option only
             if contract.product == Product.OPTION:
                 contract.option_underlying = data["UnderlyingInstrID"],
-                contract.option_type = OPTIONTYPE_XGJ2VT.get(data["OptionsType"], None),
+                contract.option_type = OPTIONTYPE_XGJ2VT.get(
+                    data["OptionsType"], None),
                 contract.option_strike = data["StrikePrice"],
-                contract.option_expiry = datetime.strptime(data["ExpireDate"], "%Y%m%d"),
+                contract.option_expiry = datetime.strptime(
+                    data["ExpireDate"], "%Y%m%d"),
 
             self.gateway.on_contract(contract)
 

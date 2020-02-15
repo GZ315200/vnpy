@@ -407,7 +407,8 @@ class ElectronicEyeMonitor(QtWidgets.QTableWidget):
 
         params = {}
         params["price_spread"] = cells["price_spread"].get_value()
-        params["volatility_spread"] = cells["volatility_spread"].get_value() / 100
+        params["volatility_spread"] = cells["volatility_spread"].get_value() / \
+            100
 
         self.algo_engine.start_algo_pricing(vt_symbol, params)
 
@@ -455,7 +456,8 @@ class ElectronicEyeManager(QtWidgets.QWidget):
         """"""
         self.setWindowTitle("期权电子眼")
 
-        self.algo_monitor = ElectronicEyeMonitor(self.option_engine, self.portfolio_name)
+        self.algo_monitor = ElectronicEyeMonitor(
+            self.option_engine, self.portfolio_name)
 
         self.log_monitor = QtWidgets.QTextEdit()
         self.log_monitor.setReadOnly(True)
@@ -478,7 +480,8 @@ class ElectronicEyeManager(QtWidgets.QWidget):
         price_spread_button.clicked.connect(self.set_price_spread_for_all)
 
         volatility_spread_button = QtWidgets.QPushButton("设置")
-        volatility_spread_button.clicked.connect(self.set_volatility_spread_for_all)
+        volatility_spread_button.clicked.connect(
+            self.set_volatility_spread_for_all)
 
         direction_button = QtWidgets.QPushButton("设置")
         direction_button.clicked.connect(self.set_direction_for_all)
@@ -708,19 +711,23 @@ class PricingVolatilityManager(QtWidgets.QWidget):
 
                 self.cells[(chain_symbol, index)] = cells
 
-            reset_func = partial(self.reset_pricing_impv, chain_symbol=chain_symbol)
+            reset_func = partial(self.reset_pricing_impv,
+                                 chain_symbol=chain_symbol)
             button_reset = QtWidgets.QPushButton("重置")
             button_reset.clicked.connect(reset_func)
 
-            fit_func = partial(self.fit_pricing_impv, chain_symbol=chain_symbol)
+            fit_func = partial(self.fit_pricing_impv,
+                               chain_symbol=chain_symbol)
             button_fit = QtWidgets.QPushButton("拟合")
             button_fit.clicked.connect(fit_func)
 
-            increase_func = partial(self.increase_pricing_impv, chain_symbol=chain_symbol)
+            increase_func = partial(
+                self.increase_pricing_impv, chain_symbol=chain_symbol)
             button_increase = QtWidgets.QPushButton("+0.1%")
             button_increase.clicked.connect(increase_func)
 
-            decrease_func = partial(self.decrease_pricing_impv, chain_symbol=chain_symbol)
+            decrease_func = partial(
+                self.decrease_pricing_impv, chain_symbol=chain_symbol)
             button_decrease = QtWidgets.QPushButton("-0.1%")
             button_decrease.clicked.connect(decrease_func)
 

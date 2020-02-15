@@ -472,25 +472,29 @@ class OptionHedgeEngine:
         # Close positon if opposite available is enough
         if available > order_volume:
             req.offset = Offset.CLOSE
-            vt_orderid = self.main_engine.send_order(req, contract.gateway_name)
+            vt_orderid = self.main_engine.send_order(
+                req, contract.gateway_name)
             self.active_orderids.add(vt_orderid)
         # Open position if no oppsite available
         elif not available:
             req.offset = Offset.OPEN
-            vt_orderid = self.main_engine.send_order(req, contract.gateway_name)
+            vt_orderid = self.main_engine.send_order(
+                req, contract.gateway_name)
             self.active_orderids.add(vt_orderid)
         # Else close all opposite available and open left volume
         else:
             close_req = copy(req)
             close_req.offset = Offset.CLOSE
             close_req.volume = available
-            close_orderid = self.main_engine.send_order(close_req, contract.gateway_name)
+            close_orderid = self.main_engine.send_order(
+                close_req, contract.gateway_name)
             self.active_orderids.add(close_orderid)
 
             open_req = copy(req)
             open_req.offset = Offset.OPEN
             open_req.volume = order_volume - available
-            open_orderid = self.main_engine.send_order(open_req, contract.gateway_name)
+            open_orderid = self.main_engine.send_order(
+                open_req, contract.gateway_name)
             self.active_orderids.add(open_orderid)
 
     def check_order_finished(self) -> None:
@@ -519,7 +523,8 @@ class OptionAlgoEngine:
         self.algos: Dict[str, ElectronicEyeAlgo] = {}
         self.active_algos: Dict[str, ElectronicEyeAlgo] = {}
 
-        self.underlying_algo_map: Dict[str, ElectronicEyeAlgo] = defaultdict(list)
+        self.underlying_algo_map: Dict[str,
+                                       ElectronicEyeAlgo] = defaultdict(list)
         self.order_algo_map: Dict[str, ElectronicEyeAlgo] = {}
 
         self.register_event()
